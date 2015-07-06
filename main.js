@@ -68,6 +68,8 @@ function init() {
 
 function startGame() {
 	canvas.removeEventListener("click", startGame);
+	canvas.removeEventListener("click", reset);
+	canvas.addEventListener("click", player.jump);
 	started=1;
 	tickInterval = setInterval(tick, 10);
 	player=new Player();
@@ -137,7 +139,10 @@ function die() {
 	ctx.fillStyle = "#FFFFFF";
 	ctx.font = "30px Arial";
 	ctx.fillText("You have Died! Score: "+score, canvas.width/2, canvas.height/2-30); 
-	ctx.fillText("Press 'R' to restart", canvas.width/2, canvas.height/2+30); 
+	ctx.fillText("Press 'R' or click to restart", canvas.width/2, canvas.height/2+30); 
+	
+	canvas.removeEventListener("click", player.jump);
+	canvas.addEventListener("click", reset);
 }
 
 

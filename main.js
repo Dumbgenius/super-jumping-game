@@ -54,6 +54,7 @@ function init() {
 	ctx.fillText("press space to jump", canvas.width/2, canvas.height/2+30); 
 	
 	canvas.addEventListener("click", startGame);
+	canvas.addEventListener("mousedown", function(event){ evenr.preventDefault(); });
 	document.addEventListener("keydown", function(event){
 		if (started) {
 			if (event.keyCode == K_SPACE) {
@@ -68,11 +69,10 @@ function init() {
 
 function startGame() {
 	canvas.removeEventListener("click", startGame);
-	canvas.removeEventListener("click", reset);
-	canvas.addEventListener("click", player.jump);
 	started=1;
 	tickInterval = setInterval(tick, 10);
 	player=new Player();
+	canvas.addEventListener("mousedown", function(){player.jump();});
 	new Platform(0, 352, canvas.width+32, "#6666DD");
 	score=0;
 	xspeed=4;
@@ -83,7 +83,13 @@ function reset() {
 	delete player;
 	clearInterval(tickInterval);
 	
-	startGame();
+	canvas.removeEventListener("click", reset);
+	started=1;
+	tickInterval = setInterval(tick, 10);
+	player=new Player();
+	new Platform(0, 352, canvas.width+32, "#6666DD");
+	score=0;
+	xspeed=4;
 }
 
 function tick() {
@@ -140,8 +146,6 @@ function die() {
 	ctx.font = "30px Arial";
 	ctx.fillText("You have Died! Score: "+score, canvas.width/2, canvas.height/2-30); 
 	ctx.fillText("Press 'R' or click to restart", canvas.width/2, canvas.height/2+30); 
-	
-	canvas.removeEventListener("click", player.jump);
 	canvas.addEventListener("click", reset);
 }
 

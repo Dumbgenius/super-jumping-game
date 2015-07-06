@@ -54,7 +54,7 @@ function init() {
 	ctx.fillText("press space to jump", canvas.width/2, canvas.height/2+30); 
 	
 	canvas.addEventListener("click", startGame);
-	canvas.addEventListener("mousedown", function(event){ evenr.preventDefault(); });
+	canvas.addEventListener("mousedown", function(event){ event.preventDefault(); });
 	document.addEventListener("keydown", function(event){
 		if (started) {
 			if (event.keyCode == K_SPACE) {

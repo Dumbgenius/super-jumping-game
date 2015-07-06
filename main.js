@@ -285,6 +285,3 @@ Platform.prototype.draw=function(ctx) {
 
 
 
-
-
-

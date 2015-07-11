@@ -31,6 +31,15 @@ function calculatePossiblePlatformPositions() {
 	return arr;
 }
 
+function randRange(min, max) {
+    return parseInt(Math.random() * (max-min+1), 10) + min;
+}
+
+function getRandomColor() {
+    var hue = randRange(180, 240);
+    return 'hsl(' + hue + ',100%,50%)';
+}
+
 /////////////////[MAIN LOGIC]//////////////////
 
 K_SPACE = 32;
@@ -139,7 +148,7 @@ function addNewPlatform () {
 	var x = lastPlatform.x + lastPlatform.width + gap;	
 	var y = position.y + lastPlatform.y;
 	var width = 120;
-	var color = "#0000FF"
+	var color = getRandomColor();
 	
 	var platform = new Platform(x, y, width, color)
 }

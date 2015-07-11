@@ -40,6 +40,9 @@ xspeed = 4;
 gravity = 0.4;
 jumpSpeed = 10;
 terminalVelocity = 10;
+difficulty = 0;
+difficultyIncreaseRate = 0.005;
+difficultyMax = 30;
 
 function init() {
 	canvas=get("mainCanvas");
@@ -90,6 +93,7 @@ function reset() {
 	new Platform(0, 352, canvas.width+32, "#6666DD");
 	score=0;
 	xspeed=4;
+	difficulty=0;
 }
 
 function tick() {
@@ -100,6 +104,12 @@ function tick() {
 	
 	draw(ctx);
 	score++;
+	
+	difficulty += difficultyIncreaseRate;
+	if (difficulty > difficultyMax) {
+		difficulty = difficultyMax
+	}
+	xspeed+=0.0003
 }
 
 function draw(ctx) {
@@ -124,7 +134,7 @@ function addNewPlatform () {
 	do {
 		position=choose(possiblePositions);
 	} while (!(position.y + lastPlatform.y>60 && position.y + lastPlatform.y<canvas.height-60)) //keep choosing until it satisfies this conditions
-	var gap = position.x * xspeed + 80;
+	var gap = position.x * xspeed + 80 + difficulty;
 	
 	var x = lastPlatform.x + lastPlatform.width + gap;	
 	var y = position.y + lastPlatform.y;
